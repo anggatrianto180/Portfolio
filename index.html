@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
+    <script>
+        // Early theme initializer: run before CSS to avoid FOUC and ensure dark class is present
+        (function(){
+            try {
+                var stored = localStorage.getItem('theme');
+                if (stored === 'dark') {
+                    document.documentElement.classList.add('dark');
+                } else if (!stored && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.classList.add('dark');
+                }
+            } catch (e) {
+                // ignore
+            }
+        })();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio | Angga Trianto - Software Quality Assurance</title>
