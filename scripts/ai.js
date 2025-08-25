@@ -161,38 +161,30 @@ document.addEventListener('DOMContentLoaded', function () {
         };
         
 
-    // Option A (recommended for security): run the local proxy and set proxyUrl to its /generate endpoint.
-    // Example: const proxyUrl = 'http://localhost:3000/generate';
-    const proxyUrl = '';
-
-    // Option B (direct, not recommended): set your API key in apiKey and calls will go directly to the Gemini endpoint.
-    const apiKey = ""; // <-- set your API key here (client-side exposure)
+    const apiKey = "AIzaSyA8Zf3OVkG6jpc8TFeNQMGKV8s1-VBx1wQ";
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
 
-        for (let i = 0; i < retries; i++) {
-            try {
-                const targetUrl = proxyUrl || apiUrl;
-                const options = {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                };
-
-                const response = await fetch(targetUrl, options);
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                const result = await response.json();
-                if (result.candidates && result.candidates[0].content && result.candidates[0].content.parts.length > 0) {
-                    return result.candidates[0].content.parts[0].text;
-                } else {
-                    throw new Error('Invalid response structure from API');
-                }
-            } catch (error) {
-                console.error(`Attempt ${i + 1} failed. Retrying in ${delay}ms...`, error);
-                if (i === retries - 1) throw error;
-                await new Promise(res => setTimeout(res, delay));
-                delay *= 2;
+    for (let i = 0; i < retries; i++) {
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            const result = await response.json();
+            if (result.candidates && result.candidates[0].content && result.candidates[0].content.parts.length > 0) {
+                return result.candidates[0].content.parts[0].text;
+            } else {
+                throw new Error('Invalid response structure from API');
             }
+        } catch (error) {
+            console.error(`Attempt ${i + 1} failed. Retrying in ${delay}ms...`, error);
+            if (i === retries - 1) throw error;
+            await new Promise(res => setTimeout(res, delay));
+            delay *= 2;
         }
+    }
     }
     
     function renderTables(data) {
