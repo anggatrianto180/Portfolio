@@ -11,13 +11,53 @@ document.addEventListener('DOMContentLoaded', function () {
     const mobileMenu = document.getElementById('mobile-menu');
     if (mobileMenuButton && mobileMenu) {
         mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+            const isOpen = mobileMenu.classList.toggle('open');
+            // update accessibility attributes
+            mobileMenu.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+            mobileMenuButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+        // Close mobile menu when a nav link is clicked
+        mobileMenu.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                mobileMenu.setAttribute('aria-hidden', 'true');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+            });
         });
     }
 
     // Tahun di footer
     const yearEl = document.getElementById('year');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    // Populate contact email dynamically and add copy button behavior
+    const contactEmailLink = document.getElementById('contact-email-link');
+    const copyEmailBtn = document.getElementById('copy-email-btn');
+    const copyFeedback = document.getElementById('copy-feedback');
+    const EMAIL = 'triantoangga180@gmail.com';
+    if (contactEmailLink) {
+        contactEmailLink.textContent = EMAIL;
+        contactEmailLink.setAttribute('href', 'mailto:' + EMAIL);
+    }
+    if (copyEmailBtn) {
+        copyEmailBtn.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(EMAIL);
+                if (copyFeedback) {
+                    copyFeedback.classList.remove('hidden');
+                    setTimeout(() => copyFeedback.classList.add('hidden'), 1800);
+                }
+            } catch (e) {
+                // fallback: select and prompt
+                const ta = document.createElement('textarea');
+                ta.value = EMAIL;
+                document.body.appendChild(ta);
+                ta.select();
+                try { document.execCommand('copy'); if (copyFeedback) { copyFeedback.classList.remove('hidden'); setTimeout(() => copyFeedback.classList.add('hidden'), 1800); } } catch (err) {}
+                document.body.removeChild(ta);
+            }
+        });
+    }
 
     // Theme (dark / light) handling
     const themeToggle = document.getElementById('theme-toggle');
