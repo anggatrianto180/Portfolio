@@ -1,0 +1,14 @@
+{
+  "name": "gemini-proxy",
+  "version": "1.0.0",
+  "description": "Simple proxy for Generative Language API to keep API key server-side",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "node-fetch": "^3.4.1",
+    "dotenv": "^16.0.3"
+  }
+}
