@@ -72,6 +72,38 @@
 
     /* h3 headings inside panels: theme-aware */
     .section-h3 { font-weight: 800; margin-bottom: 1rem; color: var(--text); }
+        /* Theme-aware project link */
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.75rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            background-color: var(--panel);
+            color: var(--text);
+            border: 1px solid rgba(15,23,42,0.06);
+            transition: background-color 0.18s ease, transform 0.12s ease;
+        }
+        .project-link:hover { transform: translateY(-2px); }
+        html.dark .project-link { background-color: rgba(255,255,255,0.02); color: var(--text); border-color: rgba(255,255,255,0.04); }
+        /* Professional layout: timeline and card footers */
+        .pro-container { display: grid; grid-template-columns: 260px 1fr; gap: 2.5rem; align-items: start; }
+        .timeline { border-left: 3px solid rgba(15,23,42,0.06); padding-left: 1.25rem; position: relative; }
+        html.dark .timeline { border-left-color: rgba(255,255,255,0.04); }
+        .timeline-item { position: relative; margin-bottom: 2rem; padding-left: 1rem; }
+        .timeline-item::before { content: ''; position: absolute; left: -22px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); border: 3px solid var(--panel); }
+        html.dark .timeline-item::before { border-color: var(--panel); }
+        .work-detail { background: var(--panel); padding: 1.25rem; border-radius: 0.6rem; box-shadow: 0 6px 18px rgba(3,8,15,0.04); }
+        html.dark .work-detail { box-shadow: none; }
+        .project-card-footer { display:flex; justify-content:space-between; align-items:center; gap:0.75rem; margin-top:0.75rem; }
+        .project-tags { display:flex; gap:0.5rem; flex-wrap:wrap; }
+        @media (max-width: 900px) {
+            .pro-container { grid-template-columns: 1fr; }
+            .timeline { border-left: 0; padding-left: 0; }
+            .timeline-item::before { left: -9999px; }
+        }
         /* Contact (email) pill - responsive and truncating on small screens */
         .contact-row { display: inline-flex; align-items: center; gap: 0.6rem; }
         .contact-pill {
@@ -241,6 +273,7 @@
                     <a href="#projek" class="nav-link text-slate-600 hover:text-gray-800 transition duration-300 font-medium">Projects</a>
                     <a href="#ai-tester" class="nav-link text-slate-600 hover:text-gray-800 transition duration-300 font-medium">AI Tester</a>
                     <a href="#pengalaman" class="nav-link text-slate-600 hover:text-gray-800 transition duration-300 font-medium">Experience</a>
+                    <a href="#certifications" class="nav-link text-slate-600 hover:text-gray-800 transition duration-300 font-medium">Certifications</a>
                     <a href="#kontak" class="bg-gray-900 text-white px-5 py-2 rounded-lg font-semibold hover:bg-gray-800 transition-all duration-300 shadow-sm">Contact Me</a>
                 <button id="theme-toggle" aria-label="Toggle theme" class="ml-3 bg-transparent p-2 rounded-md hover:bg-slate-200 transition" title="Toggle dark / light">
                     <svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -258,6 +291,7 @@
             <a href="#projek" class="nav-link block py-2 text-slate-600 hover:text-gray-800">Projects</a>
             <a href="#ai-tester" class="nav-link block py-2 text-slate-600 hover:text-gray-800">AI Tester</a>
             <a href="#pengalaman" class="nav-link block py-2 text-slate-600 hover:text-gray-800">Experience</a>
+            <a href="#certifications" class="nav-link block py-2 text-slate-600 hover:text-gray-800">Certifications</a>
             <a href="#kontak" class="mobile-cta mt-2 bg-gray-900 text-white text-center px-4 py-2 rounded-lg hover:bg-gray-800">Contact Me</a>
         </div>
     </header>
@@ -287,6 +321,8 @@
             </div>
             </div>
         </section>
+
+        
 
         <!-- Sections Keahlian, Projek, Pengalaman, Kontak -->
         <section id="keahlian" class="py-24 animated-section">
@@ -326,32 +362,30 @@
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div data-tilt class="project-card bg-white rounded-xl shadow-lg overflow-hidden group">
-                    <img src="https://placehold.co/600x400/0ea5e9/ffffff?text=Projek+A" alt="Gambar Projek A" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <img src="img/sunfish5.png" alt="Gambar Projek A" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300">
                     <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2 text-slate-800">E-commerce Application XYZ</h3>
-                        <p class="text-slate-600 mb-4">Functional testing and automation to ensure a smooth shopping experience.</p>
+                        <h3 class="text-xl font-bold mb-2 text-slate-800">Sunfish HRIS</h3>
+                        <p class="text-slate-600 mb-4">As a Software Quality Assurance, I performed functional and automation testing across desktop and mobile platforms to ensure the Sunfish HRIS application runs smoothly and reliably.</p>
+                        <a href="https://dataon.com" target="_blank" rel="noopener noreferrer" class="project-link mb-3" aria-label="Visit Sunfish HRIS">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.05 12H21.95"/></svg>
+                            <span>Visit site</span>
+                        </a>
                         <div class="flex flex-wrap pt-2 border-t border-slate-200">
-                            <span class="skill-badge">Selenium</span> <span class="skill-badge">Jira</span>
+                            <span class="skill-badge">Katalon Studio</span> <span class="skill-badge">Jira</span><span class="skill-badge">Jmeter</span><span class="skill-badge">Test Management</span><span class="skill-badge">Postman API</span><span class="skill-badge">Playwright</span>
                         </div>
                     </div>
                 </div>
                 <div data-tilt class="project-card bg-white rounded-xl shadow-lg overflow-hidden group">
-                    <img src="https://placehold.co/600x400/10b981/ffffff?text=Projek+B" alt="Gambar Projek B" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <img src="img/Jalurqa.png" alt="Gambar Projek B" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300">
                     <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2 text-slate-800">Financial Management System</h3>
-                        <p class="text-slate-600 mb-4">Performed performance testing for a fintech app, reducing 50+ vulnerabilities.</p>
+                        <h3 class="text-xl font-bold mb-2 text-slate-800">Jalur QA</h3>
+                        <p class="text-slate-600 mb-4">Developed Jalur QA, a website dedicated to education and knowledge sharing within the world of Software Quality Assurance."</p>
+                        <a href="https://jalurqa.at-tech.digital" target="_blank" rel="noopener noreferrer" class="project-link mb-3" aria-label="Visit Jalur QA">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.05 12H21.95"/></svg>
+                            <span>Visit site</span>
+                        </a>
                          <div class="flex flex-wrap pt-2 border-t border-slate-200">
-                            <span class="skill-badge">JMeter</span> <span class="skill-badge">Cypress</span>
-                        </div>
-                    </div>
-                </div>
-                <div data-tilt class="project-card bg-white rounded-xl shadow-lg overflow-hidden group">
-                    <img src="https://placehold.co/600x400/ef4444/ffffff?text=Projek+C" alt="Gambar Projek C" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2 text-slate-800">Mobile HealthTech App</h3>
-                        <p class="text-slate-600 mb-4">Led end-to-end testing cycles, improving app stability by 40%.</p>
-                         <div class="flex flex-wrap pt-2 border-t border-slate-200">
-                            <span class="skill-badge">Katalon Studio</span> <span class="skill-badge">Playwright</span>
+                            <span class="skill-badge">HTML</span> <span class="skill-badge">CSS</span><span class="skill-badge">JavaScript</span><span class="skill-badge">Node.js</span><span class="skill-badge">AI</span>
                         </div>
                     </div>
                 </div>
@@ -404,11 +438,70 @@
                     <h3 class="text-xl font-bold text-slate-800">Software Quality Assurance</h3>
                     <p class="text-md text-slate-500 mb-3">PT Indodev Niaga Internet</p>
                     <ul class="list-disc list-inside text-slate-600 space-y-2">
-                        <li>Membuat test case dan melakukan pengujian software (manual & otomatis).</li>
-                        <li>Berpengalaman dengan tools automasi seperti Katalon Studio dan Playwright.</li>
-                        <li>Melakukan pengujian manual dengan manajemen test case menggunakan Jira dan QMeter.</li>
-                        <li>Melakukan performance testing (load & stress test) menggunakan Apache JMeter.</li>
+                        <li>Designed and executed comprehensive test cases for both manual and automated testing, ensuring full feature coverage.</li>
+                        <li>Developed and maintained automation scripts using Katalon Studio and Playwright to improve testing efficiency and accuracy.</li>
+                        <li>Managed the end-to-end testing lifecycle, including test case management in Jira and API testing with Postman.</li>
+                        <li>Conducted performance testing, including load and stress tests with Apache JMeter, to identify and resolve system bottlenecks.</li>
                     </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications (compact table layout) -->
+        <section id="certifications" class="py-6 animated-section">
+            <div class="text-center">
+                <h2 class="section-title">Certifications</h2>
+            </div>
+            <div class="max-w-3xl mx-auto mt-6 bg-white p-6 rounded-xl shadow-lg dark:bg-[#0f1724]">
+                <style>
+                    /* Certification row styles */
+                    .cert-row { display: grid; grid-template-columns: 160px 1fr 48px; gap: 1rem; align-items: start; }
+                    .cert-provider { font-weight: 700; color: var(--text); }
+                    .cert-year { display:block; font-size:0.9rem; color:var(--muted); font-weight:500; }
+                    .cert-detail { color: var(--muted); }
+                    .cert-download { display: inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:8px; background: var(--panel); color:var(--text); border:1px solid rgba(15,23,42,0.06); text-decoration:none; }
+                    html.dark .cert-download { background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.04); }
+                    @media (max-width: 640px) { .cert-row { grid-template-columns: 1fr; } .cert-download { width:100%; height:auto; padding:0.6rem; } .cert-download svg{margin-right:0.5rem;} }
+                </style>
+                <div class="space-y-4">
+                    <div class="cert-row">
+                        <div class="cert-provider text-slate-800 dark:text-slate-100">Eduwork<br><span class="cert-year">2021</span></div>
+                        <div class="cert-detail text-slate-700 dark:text-slate-300">
+                            <div class="font-semibold">QA Engineer (Free Class)</div>
+                            <div class="text-sm">Learned QA fundamentals, test case writing, and practical automation using Cypress.</div>
+                        </div>
+                        <div>
+                            <a class="cert-download" href="./cert-eduwork-2021.pdf" download aria-label="Download Eduwork certificate">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12"/><path stroke-linecap="round" stroke-linejoin="round" d="M8 11l4 4 4-4"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 21H3"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                    <hr class="border-slate-200 dark:border-slate-700" />
+                    <div class="cert-row">
+                        <div class="cert-provider text-slate-800 dark:text-slate-100">Sanbercode<br><span class="cert-year">2022</span></div>
+                        <div class="cert-detail text-slate-700 dark:text-slate-300">
+                            <div class="font-semibold">Quality Assurance</div>
+                            <div class="text-sm">No. 248/13/SNBR/BOOTCAMP-KR/X/2022 — Learned QA fundamentals, test case writing, and practical automation using Selenium.</div>
+                        </div>
+                        <div>
+                            <a class="cert-download" href="./cert-sanbercode-2022.pdf" download aria-label="Download Sanbercode 2022 certificate">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12"/><path stroke-linecap="round" stroke-linejoin="round" d="M8 11l4 4 4-4"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 21H3"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                    <hr class="border-slate-200 dark:border-slate-700" />
+                    <div class="cert-row">
+                        <div class="cert-provider text-slate-800 dark:text-slate-100">Sanbercode<br><span class="cert-year">2021</span></div>
+                        <div class="cert-detail text-slate-700 dark:text-slate-300">
+                            <div class="font-semibold">Laravel + Vue JS</div>
+                            <div class="text-sm">No. 17461/68/BDG/P-SNBR/CODE/2021</div>
+                        </div>
+                        <div>
+                            <a class="cert-download" href="./cert-sanbercode-2021.pdf" download aria-label="Download Sanbercode 2021 certificate">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12"/><path stroke-linecap="round" stroke-linejoin="round" d="M8 11l4 4 4-4"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 21H3"/></svg>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

@@ -59,6 +59,57 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // Extract certificate lines from Resume.pdf and inject into Work Experience
+    async function addCertificatesFromResume() {
+        if (!window.pdfjsLib) return;
+        try {
+            const url = '/Resume.pdf';
+            const loadingTask = pdfjsLib.getDocument(url);
+            const pdf = await loadingTask.promise;
+            let fullText = '';
+            for (let i = 1; i <= pdf.numPages; i++) {
+                const page = await pdf.getPage(i);
+                const content = await page.getTextContent();
+                const pageText = content.items.map(it => it.str).join(' ');
+                fullText += '\n' + pageText;
+            }
+
+            // Find lines that look like certifications (contains cert/certificate/certified/sertifikat)
+            const lines = fullText.split(/\r?\n|\.|;|\u2022/).map(s => s.trim()).filter(Boolean);
+            const certCandidates = [];
+            const regex = /certif|certificat|certified|sertifikat|istqb|aws certified|oracle certified|microsoft certified/i;
+            for (const ln of lines) {
+                if (regex.test(ln) && ln.length > 5 && ln.length < 180) {
+                    // clean up redundant whitespace
+                    const clean = ln.replace(/\s+/g, ' ').trim();
+                    if (!certCandidates.includes(clean)) certCandidates.push(clean);
+                }
+            }
+
+            const workSection = document.getElementById('pengalaman');
+            if (!workSection) return;
+
+            const container = document.createElement('div');
+            container.className = 'max-w-3xl mx-auto mt-8';
+            if (certCandidates.length) {
+                const html = ['<div class="bg-white dark:bg-[#0f1724] p-6 rounded-xl shadow-lg">', '<h3 class="text-xl font-bold mb-3">Certifications</h3>', '<ul class="list-disc list-inside space-y-2 text-slate-700 dark:text-slate-300">'];
+                certCandidates.forEach(c => { html.push('<li>' + c + '</li>'); });
+                html.push('</ul></div>');
+                container.innerHTML = html.join('\n');
+            } else {
+                container.innerHTML = '<div class="bg-white dark:bg-[#0f1724] p-4 rounded-xl shadow-sm text-slate-600 dark:text-slate-400">No certifications found in Resume.pdf (or they are formatted differently). You can add them manually.</div>';
+            }
+            // Insert after the header inside workSection
+            workSection.appendChild(container);
+        } catch (e) {
+            // silently fail
+            console.warn('Certificate extraction failed', e);
+        }
+    }
+
+    // Try to add certificates (non-blocking)
+    addCertificatesFromResume();
+
     // Theme (dark / light) handling
     const themeToggle = document.getElementById('theme-toggle');
     const themeIcon = document.getElementById('theme-icon');
