@@ -452,21 +452,24 @@
             <div class="text-center">
                 <h2 class="section-title">Certifications</h2>
             </div>
-            <div class="max-w-3xl mx-auto mt-6 bg-white p-6 rounded-xl shadow-lg dark:bg-[#0f1724]">
+            <div class="max-w-3xl mx-auto mt-6 cert-panel p-6 rounded-xl shadow-lg">
                 <style>
                     /* Certification row styles */
                     .cert-row { display: grid; grid-template-columns: 160px 1fr 48px; gap: 1rem; align-items: start; }
+                    .cert-panel { background: var(--panel); }
                     .cert-provider { font-weight: 700; color: var(--text); }
                     .cert-year { display:block; font-size:0.9rem; color:var(--muted); font-weight:500; }
                     .cert-detail { color: var(--muted); }
                     .cert-download { display: inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:8px; background: var(--panel); color:var(--text); border:1px solid rgba(15,23,42,0.06); text-decoration:none; }
                     html.dark .cert-download { background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.04); }
+                    .cert-sep { border-top: 1px solid rgba(15,23,42,0.06); }
+                    html.dark .cert-sep { border-top-color: rgba(255,255,255,0.04); }
                     @media (max-width: 640px) { .cert-row { grid-template-columns: 1fr; } .cert-download { width:100%; height:auto; padding:0.6rem; } .cert-download svg{margin-right:0.5rem;} }
                 </style>
                 <div class="space-y-4">
                     <div class="cert-row">
-                        <div class="cert-provider text-slate-800 dark:text-slate-100">Sanbercode<br><span class="cert-year">2022</span></div>
-                        <div class="cert-detail text-slate-700 dark:text-slate-300">
+                        <div class="cert-provider">Sanbercode<br><span class="cert-year">2022</span></div>
+                        <div class="cert-detail">
                             <div class="font-semibold">Quality Assurance</div>
                             <div class="text-sm">Learned QA fundamentals, test case writing, and practical automation using Selenium.</div>
                         </div>
@@ -476,10 +479,10 @@
                             </a>
                         </div>
                     </div>
-                    <hr class="border-slate-200 dark:border-slate-700" />
+                    <hr class="cert-sep" />
                     <div class="cert-row">
-                                                <div class="cert-provider text-slate-800 dark:text-slate-100">Eduwork<br><span class="cert-year">2021</span></div>
-                        <div class="cert-detail text-slate-700 dark:text-slate-300">
+                        <div class="cert-provider">Eduwork<br><span class="cert-year">2021</span></div>
+                        <div class="cert-detail">
                             <div class="font-semibold">QA Engineer</div>
                             <div class="text-sm">Learned QA fundamentals, test case writing, and practical automation using Cypress.</div>
                         </div>
@@ -489,10 +492,10 @@
                             </a>
                         </div>
                     </div>
-                    <hr class="border-slate-200 dark:border-slate-700" />
+                    <hr class="cert-sep" />
                     <div class="cert-row">
-                        <div class="cert-provider text-slate-800 dark:text-slate-100">Sanbercode<br><span class="cert-year">2021</span></div>
-                        <div class="cert-detail text-slate-700 dark:text-slate-300">
+                        <div class="cert-provider">Sanbercode<br><span class="cert-year">2021</span></div>
+                        <div class="cert-detail">
                             <div class="font-semibold">Laravel + Vue JS</div>
                             <div class="text-sm">Laravel & Vue.js Crowdfunding Website Development</div>
                         </div>
