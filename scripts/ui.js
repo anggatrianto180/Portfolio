@@ -61,6 +61,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Extract certificate lines from Resume.pdf and inject into Work Experience
     async function addCertificatesFromResume() {
+        // If the page already contains a static Certifications section, do not auto-inject.
+        // This avoids duplicated or concatenated content appearing on the page.
+        if (document.getElementById('certifications')) {
+            // console.debug('Static #certifications found — skipping PDF auto-insert');
+            return;
+        }
         if (!window.pdfjsLib) return;
         try {
             const url = '/Resume.pdf';
